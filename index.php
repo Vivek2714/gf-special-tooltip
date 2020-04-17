@@ -7,116 +7,108 @@ Author: Vivek V.
 */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( !class_exists( 'GFAPI' ) ) return;
-
 class gfSpecialTooltip{
- 
-  private static $_instance = null;
-  public $_slug         = 'special_tooltip_';
-  public $_plugin_title = 'Special Tooltip';
-  public function __construct(){ 
-    // this filter is used to add the custom field in gravity form
-;
-    add_action( 'gform_field_standard_settings', [$this,'addSettingFields'], 10, 2 );
-    add_action( 'gform_editor_js', [$this,'editorScript'] );
-    add_filter( 'gform_tooltips', [$this,'addSpecialTooltips'] );
-  }   
 
-  // @addSettingFields() is being used to add HTML fields in the gravity forms field setting under the general tab
-  public function addSettingFields( $position, $form_id ) { 
-    //create settings on position 25 (right after Field Label)
-    if ( $position == -1 ) {
-      include dirname( __FILE__ ) . DIRECTORY_SEPARATOR.'viewField.php';
-    }
-  }
+   // Common variables
+   public $_slug          = 'special_tooltip_';     // Plugin slug
+   public $_plugin_title  = 'Special Tooltip';      // plugin Title
+   public $setting_fields = [
+            'text'             ,       // Tooltip description
+            'background_color' ,       // Tooltip background
+            'font_color'       ,       // Tooltip font color
+            'box_width'        ,       // Tooltip box width
+            'border_color'     ,       // border color
+            'border_width'     
+         ];
 
-  // @editorScript() is being used to display the setting filed under the general tab
-  // Also this function includes the code to add the text of the field
-  public function editorScript(){
+
+   public function __construct(){ 
+
+      // Adding settings fields into field settings area
+      add_action( 'gform_field_standard_settings', [$this,'addSettingFields'], 10, 2 );
+
+      // Adding javascript to handle setting operation
+      add_action( 'gform_editor_js', [$this,'editorScript'] );
+
+      // Creating tooltips for field settings label
+      add_filter( 'gform_tooltips', [$this,'addSpecialTooltips'] );
+   }   
+
+   // @addSettingFields() is being used to add HTML fields in the gravity forms field setting under the new tab
+   public function addSettingFields( $position, $form_id ) { 
+      if ( $position == -1 ) {
+         include dirname( __FILE__ ) . DIRECTORY_SEPARATOR.'field-setting.php';
+      }
+   }
+
+   // @editorScript() is being used to display the setting filed under the new tab
+   // Also this function includes the code to add the text of the field
+   public function editorScript(){
       ?>
       <script type='text/javascript'>
-				addTab = function(elem, id, label) {
-				  // add new tab
-				  elem.find( 'ul' ).eq(0).append( '<li style="width:100px; padding:0px;"> \
-				      <a href="' + id + '">' + label + '</a> \
-				      </li>' )
-				      
-				  // add new tab content
-				  elem.append( jQuery( id ) );
-				    
-				}     	
 
-        //This code is used to display my html field in all gravity form field contant
-        jQuery.each(fieldSettings, function(index, value) {
-          fieldSettings[index] += ", .SpecialTooltipText , .SpecialTooltipBackgroundColor , .SpecialTooltipFontColor";
-          fieldSettings[index] += ", .SpecialTooltipWidth , .SpecialTooltipBorder , .SpecialTooltipBorderWidth";
-        });
-        
+         // Field prefix
+         var prefix = '<?php echo $this->_slug; ?>'
 
-        // This function is used to add Tab in gravity from field
-        addTab( jQuery('#field_settings'), '#gform_tab_4', '<?php _e('Tooltip', 'gravityperks') ?>');       
+         // Setting fields
+         var setting_fields = '<?php echo json_encode($this->setting_fields); ?>';   
 
-        jQuery(document).on('gform_load_field_settings', function(event, field, form){
-          jQuery('#specialTooltipText').val(field.specialTooltipText || '' );
-          jQuery('#special_tooltip_background_color').val(field.fieldBackgroundColor || '' );
-          jQuery('#special_tooltip_font_color').val(field.fieldFontColor || '' );
-          jQuery('#special_tooltip_width').val(field.fieldWidth || '0px' );
-          jQuery('#special_tooltip_Border').val(field.fieldBorder || '' );
-          jQuery('#SpecialTooltipBorderWidth').val(field.SpecialTooltipBorderWidth || '' );
-        });
+         addTab = function(elem, id, label) {
+            // add new tab
+            elem.find( 'ul' ).eq(0).append( '<li style="width:100px; padding:0px;"><a href="' + id + '">' + label + '</a></li>' );
+            // add new tab content
+            elem.append( jQuery( id ) );
+         }     	
+         // This function is used to add Tab in gravity from field
+         addTab( jQuery('#field_settings'), '#gform_spcl_tooltip_tab', '<?php _e('Spcl Tooltip', 'gravityperks') ?>');    
 
+         // Parse field object
+         var fields = JSON.parse(setting_fields);
 
-        jQuery('#specialTooltipText').bind('input propertychange', function() {
-          SetFieldProperty('specialTooltipText', jQuery(this).val());
-        });  
+         //This code is used to display my html field in all gravity form field contant
+         jQuery.each(fieldSettings, function(index, value) {
+            for (i = 0; i < fields.length; i++) {
+               fieldSettings[index] += ", ."+prefix+fields[i];
+            }
+         });   
 
-        jQuery('#special_tooltip_background_color').bind('input propertychange', function() {
-          SetFieldProperty('fieldBackgroundColor', jQuery(this).val());
-        });  
+         // Adding field values
+         jQuery(document).on('gform_load_field_settings', function(event, field, form){
+            var fieldData = JSON.parse(JSON.stringify(field));
+            for (i = 0; i < fields.length; i++) {
+                 jQuery('#'+prefix+fields[i] ).val( fieldData[prefix+fields[i]] || '' );
+            }
+         });
 
-        jQuery('#special_tooltip_font_color').bind('input propertychange', function() {
-          SetFieldProperty('fieldFontColor', jQuery(this).val());
-        });  
-
-        jQuery('#special_tooltip_width').bind('input propertychange', function() {
-          SetFieldProperty('fieldWidth', jQuery(this).val());
-        });
-
-        jQuery('#special_tooltip_Border').bind('input propertychange', function() {
-          SetFieldProperty('fieldBorder', jQuery(this).val());
-        });  
-
-        jQuery('#SpecialTooltipBorderWidth').bind('input propertychange', function() {
-          SetFieldProperty('SpecialTooltipBorderWidth', jQuery(this).val());
-        });                                                                        
-                         
+         // Adding field values on change
+          for (var i = 0; i < fields.length; i++) {
+            jQuery('#'+prefix+fields[i]).bind('input propertychange', function() {
+               SetFieldProperty( jQuery(this).attr('id'), jQuery(this).val());
+            }); 
+         }
+                                                        
       </script>
       <?php
-  }
+   }
 
-  // @addSpecialTooltips() is being used to add the infor text like tooltip to the label of the field in the general tab
-  public function addSpecialTooltips( $tooltips ) {
-    $tooltips['form_special_tooltip_text']             = "<h6>Special Tooltip Text</h6>Enter field text";
-    $tooltips['form_special_tooltip_Background_color'] = "<h6>Background Color</h6>Enter field border color";
-    $tooltips['form_special_tooltip_font_color']       = "<h6>Font Color</h6>Enter field font color";
-    $tooltips['form_special_tooltip_width']            = "<h6>Width</h6>Enter field width in px";
-    $tooltips['form_special_tooltip_Border']           = "<h6>Border</h6> Enter field border";
-    $tooltips['SpecialTooltipBorderWidth']             = "<h6>Border Width</h6>Enter field border width in px";
-    return $tooltips;
-  }  
-
-  public static function instance () {
-    if ( is_null( self::$_instance ) )
-      self::$_instance = new self();
-    return self::$_instance;
-  } // End instance()
-
-}
-
-function gfSpecialTooltip(){
-  return gfSpecialTooltip::instance();
+   // @addSpecialTooltips() is being used to add the infor text like tooltip to the label of the field in the general tab
+   public function addSpecialTooltips( $tooltips ) {
+      $prefix = $this->_slug;
+      $tooltips[ 'form_'.$prefix.'text']             = "<h6>Special Tooltip Text</h6>Enter tooltip text";
+      $tooltips[ 'form_'.$prefix.'background_color'] = "<h6>Background Color</h6>Select tooltip background color";
+      $tooltips[ 'form_'.$prefix.'font_color']       = "<h6>Font Color</h6>Select tooltip font color";
+      $tooltips[ 'form_'.$prefix.'box_width']        = "<h6>Width</h6>Enter tooltip box width";
+      $tooltips[ 'form_'.$prefix.'border_color']     = "<h6>Border color</h6> Select tooltip border color";
+      $tooltips[ 'form_'.$prefix.'border_width']     = "<h6>Border width</h6> Enter tooltip border width";
+      return $tooltips;
+   }  
 }
 
 add_action( 'plugins_loaded', function() {
-  gfSpecialTooltip();
+   
+   // Check if Gravity form plugin is activated
+   if ( !class_exists( 'GFAPI' ) ) return;
+
+   // Calling class object
+   new gfSpecialTooltip();
 });
