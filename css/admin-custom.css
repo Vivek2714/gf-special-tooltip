@@ -1,0 +1,93 @@
+.special_tooltip_tabs  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+/* Accordion styles */
+ .special_tooltip_tabs  {
+   border-radius: 8px;
+   overflow: hidden;
+   padding-left: 6px;
+    padding-right: 6px;
+}
+ .tab {
+   width: 100%;
+   overflow: hidden;
+}
+ .tab-label {
+   display: flex;
+   justify-content: space-between;
+   font-weight: bold;
+   cursor: pointer;
+   position: relative;
+   z-index: 1;
+   margin: 0px !important;
+  /* Icon */
+}
+.tab span {
+    border-bottom: 1px solid #dfdfdf;
+    width: 100%;
+    position: absolute;
+    height: 1px;
+    right: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+}
+/* .tab-label:hover {
+   background: #1a252f;
+}*/
+ .tab-label::after {
+   content: "\276F";
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: #fff;
+   z-index: 9;
+   transform: rotate(90deg);
+   margin-right: 19px;
+   font-size: 13px;
+   color: #33333399;
+   position: absolute;
+   right: 0px;
+   top: 0;
+   right: -13px;
+   font-weight: 100;
+}
+ .tab-content {
+   max-height: 0;
+   padding: 0 1em;
+   color: #2c3e50;
+   background: white;
+   transition: all 0.35s;
+}
+ .tab-close {
+   display: flex;
+   justify-content: flex-end;
+   padding: 1em;
+   font-size: 0.75em;
+   background: #2c3e50;
+   cursor: pointer;
+}
+ .tab-close:hover {
+   background: #1a252f;
+}
+.special_tooltip_tabs  label.tab-label p {
+    background: #fff;
+    z-index: 9;
+    font-size: 13px;
+    color: #333;
+    width: fit-content;
+    padding-right: 2px;
+    font-weight: 400;
+}
+.special_tooltip_tabs  input:checked + .tab-label::after {
+   transform: rotate(-90deg);
+}
+.special_tooltip_tabs  input:checked ~ .tab-content {
+   max-height: 100vh;
+   padding: 1em 0px;
+}
