@@ -17,13 +17,13 @@
     </li> 
     <li class="<?php echo $prefix.'toggle'; ?> field_setting">        
       <div class="<?php echo $prefix.'tabs'; ?>">
-        <div class="tab">
+        <div class="<?php echo $prefix.'tab'; ?>">
           <input type="checkbox" id="chck1">
-          <label class="tab-label section_label" for="chck1">
-            <?php esc_html_e( $this->_plugin_title.' Addvance Fields', 'gravityforms' ); ?>
+          <label class="<?php echo $prefix.'tab_label'; ?> section_label" for="chck1">
+            <p><?php esc_html_e( $this->_plugin_title.' Addvance Fields', 'gravityforms' ); ?></p>
             <span></span>
           </label>
-           <div class="tab-content">
+           <div class="<?php echo $prefix.'tab_content'; ?>">
               <ul id="spcl_tooltip_container">
                 <li class="<?php echo $prefix.'uses'; ?> field_setting">
                   <label for="<?php echo $prefix.'uses'; ?>" class="section_label">

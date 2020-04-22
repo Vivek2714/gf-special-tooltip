@@ -2,7 +2,7 @@
 /*
 Plugin Name: GF Special tooltip
 Description: tooltips
-version: 1.6
+version: 1.7
 Author: Vivek V.
 */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class gfSpecialTooltip{
 
   // Common variables
-  public $cfp;  // Current File Path
-  public $_slug          = 'special_tooltip_';     // Plugin slug
-  public $_plugin_title  = 'Special Tooltip';      // plugin Title
+  public $_directory_path;  
+  public $_slug          = 'special_tooltip_'; // Plugin slug
+  public $_plugin_title  = 'Special Tooltip';  // plugin Title
   public $setting_fields = [
     'label'            ,       // Tooltip label
     'text'             ,       // Tooltip description
@@ -27,8 +27,8 @@ class gfSpecialTooltip{
 
 
   public function __construct(){ 
-
-    $this->cfp = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
+   
+    $this->_directory_path = dirname( __FILE__ ) . DIRECTORY_SEPARATOR; // Current Directory Path
 
     // Adding settings fields into field settings area
     add_action( 'gform_field_standard_settings', [$this,'addSettingFields'], 10, 2 );
@@ -40,26 +40,31 @@ class gfSpecialTooltip{
     add_filter( 'gform_tooltips', [$this,'addSpecialTooltips'] );
 
     // Add Css file
-    add_action( 'admin_enqueue_scripts', [ $this,'tooltip_style_for_backend' ] );
-    add_action( 'wp_enqueue_scripts', [ $this,'enqueue_scripts' ] );
+    add_action( 'admin_enqueue_scripts', [ $this,'adminEnqueueScripts' ] );
+    add_action( 'gform_enqueue_scripts', [ $this,'enqueueScripts' ] );
 
-    include $this->cfp.'inc/special-tooltip-handler.php';
+    $tooltipHandler = $this->_directory_path.'inc/special-tooltip-handler.php';;
+    if (file_exists($tooltipHandler)) {
+      include_once $tooltipHandler;
+    }
   }   
 
-  public function tooltip_style_for_backend(){
-   wp_enqueue_style('custom-css-backend',plugin_dir_url(__FILE__).'css/admin-custom.css');
+  public function adminEnqueueScripts(){
+   wp_enqueue_style($this->_slug.'custom-css-backend',plugin_dir_url(__FILE__).'css/admin-custom.css');
   }
 
   #############
-  public function enqueue_scripts(){
-    wp_enqueue_style('font-awesome',plugin_dir_url(__FILE__).'font-awesome/css/font-awesome.min.css');
-    wp_enqueue_style('custom-css',plugin_dir_url(__FILE__).'css/custom.css');
+  public function enqueueScripts(){
+    wp_enqueue_style($this->_slug.'font_awesome',plugin_dir_url(__FILE__).'font-awesome/css/font-awesome.min.css');
+    wp_enqueue_style($this->_slug.'custom',plugin_dir_url(__FILE__).'css/custom.css');
   }  
 
   // @addSettingFields() is being used to add HTML fields in the gravity forms field setting under the new tab
   public function addSettingFields( $position, $form_id ) { 
-    if ( $position == -1 ) {
-      include $this->cfp.'field-setting.php';
+    if ( $position != -1 ) {return;}
+    $fieldSetting = $this->_directory_path.'field-setting.php';
+    if (file_exists($fieldSetting)) {
+      include_once $fieldSetting;
     }
   }
 
@@ -127,8 +132,7 @@ class gfSpecialTooltip{
   }  
 }
 
-add_action( 'plugins_loaded', function() {
-   
+add_action( 'plugins_loaded', function() { 
   // Check if Gravity form plugin is activated
   if ( !class_exists( 'GFAPI' ) ) return;
 

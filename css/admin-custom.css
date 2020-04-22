@@ -1,31 +1,31 @@
 .special_tooltip_tabs  input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    z-index: -1;
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
 }
 
 /* Accordion styles */
- .special_tooltip_tabs  {
-   border-radius: 8px;
-   overflow: hidden;
-   padding-left: 6px;
-    padding-right: 6px;
+.special_tooltip_tabs  {
+  border-radius: 8px;
+  overflow: hidden;
+  padding-left: 6px;
+  padding-right: 6px;
 }
- .tab {
-   width: 100%;
-   overflow: hidden;
+.special_tooltip_tab {
+  width: 100%;
+  overflow: hidden;
 }
- .tab-label {
-   display: flex;
-   justify-content: space-between;
-   font-weight: bold;
-   cursor: pointer;
-   position: relative;
-   z-index: 1;
-   margin: 0px !important;
+.special_tooltip_tab_label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  margin: 0px !important;
   /* Icon */
 }
-.tab span {
+.special_tooltip_tab span {
     border-bottom: 1px solid #dfdfdf;
     width: 100%;
     position: absolute;
@@ -39,7 +39,7 @@
 /* .tab-label:hover {
    background: #1a252f;
 }*/
- .tab-label::after {
+ .special_tooltip_tab_label::after {
    content: "\276F";
    text-align: center;
    display: flex;
@@ -57,14 +57,14 @@
    right: -13px;
    font-weight: 100;
 }
- .tab-content {
+ .special_tooltip_tab_content {
    max-height: 0;
    padding: 0 1em;
    color: #2c3e50;
    background: white;
    transition: all 0.35s;
 }
- .tab-close {
+ .special_tooltip_tab_close {
    display: flex;
    justify-content: flex-end;
    padding: 1em;
@@ -72,10 +72,10 @@
    background: #2c3e50;
    cursor: pointer;
 }
- .tab-close:hover {
+ .special_tooltip_tab_close:hover {
    background: #1a252f;
 }
-.special_tooltip_tabs  label.tab-label p {
+.special_tooltip_tabs  label.special_tooltip_tab_label p {
     background: #fff;
     z-index: 9;
     font-size: 13px;
@@ -84,10 +84,10 @@
     padding-right: 2px;
     font-weight: 400;
 }
-.special_tooltip_tabs  input:checked + .tab-label::after {
+.special_tooltip_tabs  input:checked + .special_tooltip_tab_label::after {
    transform: rotate(-90deg);
 }
-.special_tooltip_tabs  input:checked ~ .tab-content {
+.special_tooltip_tabs  input:checked ~ .special_tooltip_tab_content {
    max-height: 100vh;
    padding: 1em 0px;
 }
