@@ -1,4 +1,4 @@
-/***tooltip css*/
+/********tooltip css****/
 
 span.special_tooltip_custom_tooltip:before {
   content: "\f059";
@@ -7,14 +7,14 @@ span.special_tooltip_custom_tooltip:before {
 }
 
 .special_tooltip_custom_tooltip {
-  position: relative;
+  position: absolute;
   display: inline-block;
 }
 
-.special_tooltip_custom_tooltip:hover .special_tooltip_tooltiptext , 
-.ginput_container .special_tooltip_custom_tooltip:hover .special_tooltip_tooltiptext{
+.special_tooltip_custom_tooltip:hover .special_tooltip_tooltiptext,
+.ginput_container .special_tooltip_custom_tooltip:hover .special_tooltip_tooltiptext {
   visibility: visible;
-} 
+}
 
 .special_tooltip_custom_tooltip .special_tooltip_tooltiptext {
   position: absolute;
@@ -32,17 +32,18 @@ span.special_tooltip_custom_tooltip:before {
   position: absolute;
 }
 
-/**top position*/
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top ,
-.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top{
+/***top position**/
+
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top,
+.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top {
   bottom: 100%;
   left: 50%;
   margin-left: -60px;
 }
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top::after ,
-.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top::after{
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top::after,
+.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top::after {
   top: 100%;
   left: 50%;
   margin-left: -5px;
@@ -52,37 +53,35 @@ span.special_tooltip_custom_tooltip:before {
 }
 
 
+/***left position**/
 
-/**left position*/
-
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left ,
-.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left{
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left,
+.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left {
   top: -5px;
   right: 105%;
 }
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left::after ,
-.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left::after{
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left::after,
+.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_left::after {
   top: 50%;
   left: 100%;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent transparent black;
-
 }
 
-/**bottom position*/
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom ,
-.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom{
+/***bottom position**/
+
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom,
+.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom {
   top: 100%;
   left: 50%;
   margin-left: -60px;
-
 }
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom::after , 
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom::after,
 .ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom::after {
   bottom: 100%;
   left: 50%;
@@ -90,18 +89,19 @@ span.special_tooltip_custom_tooltip:before {
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent black transparent;
-
 }
 
-/**right position*/
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right ,  
-.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right{
+/***right position**/
+
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right,
+.ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right {
   top: -5px;
   left: 105%;
+  margin-left: 6px;
 }
 
-.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right::after , 
+.special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right::after,
 .ginput_container .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_right::after {
   top: 50%;
   right: 100%;

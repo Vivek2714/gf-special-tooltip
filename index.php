@@ -2,7 +2,7 @@
 /*
 Plugin Name: GF Special tooltip
 Description: tooltips
-version: 1.7
+version: 1.6
 Author: Vivek V.
 */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -135,7 +135,6 @@ class gfSpecialTooltip{
 add_action( 'plugins_loaded', function() { 
   // Check if Gravity form plugin is activated
   if ( !class_exists( 'GFAPI' ) ) return;
-
   // Calling class object
   new gfSpecialTooltip();
 });

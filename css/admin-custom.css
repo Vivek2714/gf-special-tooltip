@@ -36,9 +36,6 @@
     transform: translate(-50%,-50%);
     z-index: -1;
 }
-/* .tab-label:hover {
-   background: #1a252f;
-}*/
  .special_tooltip_tab_label::after {
    content: "\276F";
    text-align: center;
