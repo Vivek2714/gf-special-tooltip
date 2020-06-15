@@ -1,9 +1,10 @@
 /********tooltip css****/
 
-span.special_tooltip_custom_tooltip:before {
+span.special_tooltip_custom_tooltip input:before {
   content: "\f059";
   font: normal normal normal 14px/1 FontAwesome;
   padding-left: 6px;
+  margin: -0.1875rem 0 0 -0.25rem;
 }
 
 .special_tooltip_custom_tooltip {
@@ -40,6 +41,7 @@ span.special_tooltip_custom_tooltip:before {
   bottom: 100%;
   left: 50%;
   margin-left: -60px;
+
 }
 
 .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_top::after,
@@ -79,6 +81,8 @@ span.special_tooltip_custom_tooltip:before {
   top: 100%;
   left: 50%;
   margin-left: -60px;
+  margin-top: 6px;
+
 }
 
 .special_tooltip_custom_tooltip .special_tooltip_tooltiptext.special_tooltip_bottom::after,
@@ -109,4 +113,35 @@ span.special_tooltip_custom_tooltip:before {
   border-width: 5px;
   border-style: solid;
   border-color: transparent black transparent transparent;
+}
+
+.special_tooltip_custom_tooltip.special_tooltip_click input+span {
+  display: none;
+}
+.special_tooltip_custom_tooltip.special_tooltip_click input:checked+span {
+  visibility: visible;
+  display: block;
+}
+.special_tooltip_custom_tooltip input{
+  border: 0px;
+  background-color: #fff0;
+  margin: -0.1875rem 0 0 -0.25rem;
+}
+.special_tooltip_custom_tooltip.special_tooltip_click input[type="checkbox"] {
+  border: 0px;
+  background-color: #fff0;
+  margin: -0.1875rem 0 0 -0.25rem;
+}
+.special_tooltip_custom_tooltip.special_tooltip_click input[type="checkbox"]:checked::before,
+.special_tooltip_custom_tooltip input[type="checkbox"]:checked::before {
+  content: "\f059";
+  font: normal normal normal 14px/1 FontAwesome;
+  position: initial;
+}
+.special_tooltip_custom_tooltip.special_tooltip_click input:focus,
+.special_tooltip_custom_tooltip input:focus{
+  outline: none;
+}
+.special_tooltip_custom_tooltip.special_tooltip_hover input:hover+span{
+  display: block;
 }

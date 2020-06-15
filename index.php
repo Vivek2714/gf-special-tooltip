@@ -23,6 +23,7 @@ class gfSpecialTooltip{
     'position'         ,       // Tooltip position
     'uses'             ,       // Tooltip Display label or input
     'toggle'           ,       // Tooltip Display label or input
+    'trigger'          ,       // Tooltip Trigger
   ];
 
 

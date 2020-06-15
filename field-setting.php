@@ -49,7 +49,20 @@
                     <option value="left"><?php _e('Left', 'mtfgf'); ?></option>
                     <option value="right"><?php _e('Right', 'mtfgf'); ?></option>
                   </select>       
-                </li>      
+                </li>   
+
+                <li class="<?php echo $prefix.'trigger'; ?> field_setting">
+                  <label for="<?php echo $prefix.'trigger'; ?>" class="section_label">
+                    <?php esc_html_e( 'Tooltip Trigger', 'gravityforms' ); ?>
+                    <?php gform_tooltip( 'form_'.$prefix.'trigger' ) ?>
+                  </label>
+                  <select id="<?php echo $prefix.'trigger'; ?>" name="<?php echo $prefix.'trigger'; ?>" onchange="SetFieldProperty('<?php echo $prefix.'trigger'; ?>', this.value);" class="fieldwidth-1"/>
+                    <option value=""><?php _e('Tooltip trigger', 'mtfgf'); ?></option>
+                    <?php foreach (['click','hover'] as $trigger) { ?>
+                      <option value="<?php echo $trigger; ?>"><?php _e(ucfirst($trigger), 'mtfgf'); ?></option>
+                    <?php } ?>
+                  </select>       
+                </li>                    
 
                 <li class="<?php echo $prefix.'background_color'; ?> field_setting">
                   <label for="<?php echo $prefix.'background_color'; ?>" class="section_label">
@@ -75,13 +88,13 @@
                   <input type="text" id="<?php echo $prefix.'box_width'; ?>" placeholder="200px"value="200px" class="fieldwidth-1" size="35" onclick="SetFieldProperty('<?php echo $prefix.'box_width'; ?>', this.value);" />
                 </li>  
 
-                <li class="<?php echo $prefix.'border_color'; ?> field_setting">
-                  <label for="<?php echo $prefix.'border_color'; ?>" class="section_label">
-                    <?php esc_html_e( 'Tooltip Border Color', 'gravityforms' ); ?>
-                    <?php gform_tooltip( 'form_'.$prefix.'border_color' ) ?>
+<!--                 <li class="<?php// echo $prefix.'border_color'; ?> field_setting">
+                  <label for="<?php// echo $prefix.'border_color'; ?>" class="section_label">
+                    <?php //esc_html_e( 'Tooltip Border Color', 'gravityforms' ); ?>
+                    <?php// gform_tooltip( 'form_'.$prefix.'border_color' ) ?>
                   </label>       
-                  <input type="color" id="<?php echo $prefix.'border_color'; ?>" placeholder="#000" class="fieldwidth-1" size="35" onclick="SetFieldProperty('<?php echo $prefix.'border_color'; ?>', this.value);" />
-                </li>    
+                  <input type="color" id="<?php// echo $prefix.'border_color'; ?>" placeholder="#000" class="fieldwidth-1" size="35" onclick="SetFieldProperty('<?php //echo $prefix.'border_color'; ?>', this.value);" />
+                </li> -->    
               </ul>
            </div>
         </div>
